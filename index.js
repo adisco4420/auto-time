@@ -1,24 +1,88 @@
 var robot = require("robotjs");
+var cmd=require('node-cmd');
  
-// Speed up the mouse.
 
-setTimeout(() => {
-    keyPress()
-}, 10000);
+const broserEvent = () => {
+    cmd.run('google-chrome')
+    const timeout = 25000
+    setTimeout(() => {
+    robot.typeString('bitbucket.org/notchteam/notch-angular/src/develop');
+    robot.keyTap("enter");
+    scrollPage()
+    setTimeout(() => {
+        robot.keyTap('T', 'control');
+        robot.typeString('localhost'); robot.keyTap(';', 'shift'); robot.typeString('4200/sales/deals-list')
+        robot.keyTap("enter");
+        scrollPage()
+        setTimeout(() => {
+            robot.keyTap('w', ['control', 'shift']); 
+            keyPress()
+        }, 3000);
+        return
+        setTimeout(() => {
+            robot.keyTap('T', 'control')
+            robot.typeString('mailgun.com');
+            robot.keyTap("enter");
+            scrollPage()
+            setTimeout(() => {
+                robot.keyTap('T', 'control');
+                robot.typeString('postman.com');
+                robot.keyTap("enter");
+                scrollPage()
+                setTimeout(() => {
+                    robot.keyTap('T', 'control');
+                    robot.typeString('localhost'); robot.keyTap(';', 'shift'); robot.typeString('4200/ticket/ticket-dashboard')
+                    robot.keyTap("enter");
+                    scrollPage()
+                    setTimeout(() => {
+                        robot.keyTap('T', 'control');
+                        robot.typeString('twilio.com');
+                        robot.keyTap("enter");
+                        scrollPage()
+                        setTimeout(() => {
+                            robot.keyTap('tab', ['control', 'shift']);
+                            setTimeout(() => {
+                                robot.keyTap('tab', ['control', 'shift']);
+                                setTimeout(() => {
+                                    robot.keyTap('tab', ['control', 'shift']);
+                                    setTimeout(() => {
+                                        robot.keyTap('tab', ['control', 'shift']); 
+                                        setTimeout(() => {
+                                            robot.keyTap('w', ['control', 'shift']); 
+                                            setTimeout(() => {
+                                                keyPress()
+                                            }, 3000);
+                                        }, timeout);
+                                    }, timeout);
+                                }, timeout);
+                            }, timeout);
+                        }, timeout);
+                    }, timeout);
+                }, timeout);
+            }, timeout);
+        }, timeout);
+    }, timeout);
+    }, 2000);
+
+}
+const scrollPage = () => {
+    setTimeout(() => {
+        const screenSize = robot.getScreenSize()
+        var height = screenSize.height + screenSize.height;
+        var width = screenSize.width  - 400;
+        robot.moveMouseSmooth(width, height)
+    }, 5000);
+}
+
 const keyPress = () => {
     console.log('keypress event');
-    
     const alpha = [data(), data2(), data3(), , data4(), data5(), data6(), data7()];
     const ran1 = Math.floor(Math.random()*10);
-    const ran2 = Math.floor(Math.random()*10);
-    const ran3 = Math.floor(Math.random()*10);
-    const ran4 = Math.floor(Math.random()*10);
-    const ran5 = Math.floor(Math.random()*10);
-    const randonmString = `${alpha[ran1]}${alpha[ran2]}${alpha[ran3]}${alpha[ran4]}${alpha[ran5]}`
+    const randonmString = `${alpha[ran1] ? alpha[ran1] : alpha[3]}`
     robot.typeString(randonmString);
     robot.keyTap("enter");
     setTimeout(() => {
-        mousemove()
+        broserEvent()
     }, 5000);
 }
 const data = () => {
@@ -136,36 +200,15 @@ const data7 = () => {
 }
 
 const mousemove = () => {
-robot.setMouseDelay(2);
-var twoPI = Math.PI * 2.0;
-var screenSize = robot.getScreenSize();
-var height = (screenSize.height / 2) - 10;
-var width = screenSize.width;
-for (var x = 0; x < width; x++)
-    {
-        y = height * Math.sin((twoPI * x) / width) + height;
-        robot.moveMouse(x, y);
-        // robot.mouseClick()
-    }
-// var twoPI = Math.PI * 2.0;
-// const ran1 = Math.floor(Math.random()*100);
-// const ran2 = Math.floor(Math.random()*100);
-// const ran3 = Math.floor(Math.random()*1000);
-// const ran4 = Math.floor(Math.random()*1000);
-// var screenSize = robot.getScreenSize();
-// var height = (screenSize.height / 2) - ran1 ;
-// var width = screenSize.width;
-// const x = width+ran2
-// const y = height * Math.sin((twoPI * x) / width) + height;
-// robot.moveMouse(x, y);
-// // robot.mouseToggle("down");
-// // robot.dragMouse(ran3, ran4);
-// robot.mouseToggle("up");
-// robot.mouseClick();
-
-console.log('move event');
-
-    setTimeout(() => {
-        keyPress()
-    }, 10000);
+    robot.setMouseDelay(2);
+    var twoPI = Math.PI * 2.0;
+    var screenSize = robot.getScreenSize();
+    console.log(screenSize);
+    var height = screenSize.height;
+    var width = screenSize.width  - 400;
+    robot.dragMouse(width, height)
 }
+setTimeout(() => {
+    keyPress()
+    mousemove()
+}, 10000);
